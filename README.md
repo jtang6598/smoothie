@@ -1,31 +1,34 @@
+# smoothie
 
-# Welcome to your CDK Python project!
+## Setup
 
-This is a blank project for Python development with CDK.
+### Prerequisites
+- Create a personal AWS account
+- Create an IAM user with [programmatic access](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and administrator permissions.
+     1. Click "Add User" in the IAM user console
+     2. Name your user and check "Access key - Programmatic access" under "Select AWS access type"
+     3. Click "Attach existing policies directly" and search and select "AdministratorAccess"
+     4. Skip Tags and download the user's access key and secret access key
+- [Install AWS CLI version 2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+- [Install AWS CDK Toolkit](https://docs.aws.amazon.com/cdk/latest/guide/work-with.html#work-with-prerequisites)
+- Configure AWS CDK to use your administrator IAM user's credentials
+    1. Run
+    ```
+    aws configure
+    ```
+    2. Enter your IAM user's access key and secret access key when prompted
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+### Setup Project
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+After the prerequisites are completed, you can use the following command to activate your virtualenv.
 
-To manually create a virtualenv on MacOS and Linux:
-
-```
-$ python3 -m venv .venv
-```
-
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
+For Mac
 
 ```
 $ source .venv/bin/activate
 ```
 
-If you are a Windows platform, you would activate the virtualenv like this:
+For Windows
 
 ```
 % .venv\Scripts\activate.bat
@@ -36,23 +39,3 @@ Once the virtualenv is activated, you can install the required dependencies.
 ```
 $ pip install -r requirements.txt
 ```
-
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
-
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
