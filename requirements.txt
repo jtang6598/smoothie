@@ -1,1 +1,4 @@
+aiohttp
+numpy
+scipy
 -e .
