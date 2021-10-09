@@ -39,3 +39,17 @@ Once the virtualenv is activated, you can install the required dependencies.
 ```
 $ pip install -r requirements.txt
 ```
+
+### Deploy Stack
+
+To deploy the stack to your personal account, run
+
+```
+$ cdk bootstrap aws://<AWS account id>/<region>
+```
+
+This command only needs to be run once. To deploy the actual stack, run
+
+```
+$ cdk synth && cdk deploy SmoothieStack
+```
