@@ -1,8 +1,10 @@
+import time
 import aiohttp
 import getpass
 import urllib
 import os
-import json
+
+from spotify.gateway import *
 
 class AuthorizationHandler:
 
@@ -50,22 +52,28 @@ class AuthorizationHandler:
             'redirect_uri': self._redirect_uri
         }
 
-        async with self._client_session.post(url="https://accounts.spotify.com/api/token", data=body, auth=self._auth) as response:
-            response_json = await response.text()
-            response_json = json.loads(response_json)
-            user.access_token = response_json['access_token']
-            user.refresh_token = response_json['refresh_token']
+        response = await spotify_post(self._client_session, url="https://accounts.spotify.com/api/token", body=body, auth=self._auth)
+        user.access_token = response['access_token']
+        user.refresh_token = response['refresh_token']
+        user.token_expiration_time = int(time.time()) + response['expires_in']
+
+        return response
 
 
-    async def request_refresh_token(self, user):
+    async def refresh_access_token(self, user):
         body = {
             'grant_type': 'refresh_token',
             'refresh_token': user.refresh_token
         }
 
-        async with self._client_session.post(url="https://accounts.spotify.com/api/token", data=body, auth=self._auth) as response:
-            response_json = await response.text()
-            response_json = json.loads(response_json)
-            user.access_token = response_json['access_token']
-            user.refresh_token = response_json['refresh_token']
+        response = await spotify_post(self._client_session, url="https://accounts.spotify.com/api.token", body=body, auth=self._auth)
+        user.access_token = response['access_token']
+        user.token_expiration_time = int(time.time()) + response['expires_in']
+
+        try:
+            user.refresh_token = response['refresh_token']
+        except KeyError:
+            user.refresh_token = None
+
+        return response
 

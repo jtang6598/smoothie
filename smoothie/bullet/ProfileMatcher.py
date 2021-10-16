@@ -14,8 +14,8 @@ class ProfileMatcher:
         return self._similarity_profile
         
 
-    @classmethod
-    def match(self, profile1: SongProfile, profile2: SongProfile):
+    @staticmethod
+    def match(profile1: SongProfile, profile2: SongProfile):
         # first use a Gaussian filter to smooth out details into overall features
         profile1 = gaussian_filter(profile1.profile, sigma=ProfileMatcher.blur_radius)
         profile2 = gaussian_filter(profile2.profile, sigma=ProfileMatcher.blur_radius)
@@ -26,7 +26,7 @@ class ProfileMatcher:
         return ProfileMatcher(similarty_profile)
 
 
-    @classmethod
+    @staticmethod
     def intervaled_integral(function):
         # use trapezoid rule
         return 0.5 * (function[:-1] + function[1:])
