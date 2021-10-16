@@ -17,7 +17,7 @@ async def get_playlist(session, user, playlist_id):
     headers = user.build_auth_header(session)
 
     params = {
-        'fields': 'tracks.items(added_at, track(id)),tracks.next' # only return specific fields of the response
+        'fields': 'tracks.items(added_at, track(id)),tracks.next,name' # only return specific fields of the response
     }
 
     response = await spotify_get(session, f'https://api.spotify.com/v1/playlists/{playlist_id}', headers=headers, params=params)
@@ -43,7 +43,7 @@ async def get_playlist(session, user, playlist_id):
 
             response = response_tmp
     except KeyError as ke:
-        print('Response with no tracks field:\t' + str(response))
+        print('Response used to enter loop:\t' + str(response))
         raise ke
 
     return playlist
