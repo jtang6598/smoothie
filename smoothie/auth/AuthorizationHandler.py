@@ -66,7 +66,7 @@ class AuthorizationHandler:
             'refresh_token': user.refresh_token
         }
 
-        response = await spotify_post(self._client_session, url="https://accounts.spotify.com/api.token", body=body, auth=self._auth)
+        response = await spotify_post(self._client_session, url="https://accounts.spotify.com/api/token", body=body, auth=self._auth)
         user.access_token = response['access_token']
         user.token_expiration_time = int(time.time()) + response['expires_in']
 

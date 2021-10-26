@@ -14,6 +14,8 @@ class User:
 
     def check_and_refresh_token(self, session):
         if self.token_expiration_time < int(time.time()):
+            if not self.refresh_token:
+                print('REFRESHING ACCESS TOKEN WITH NO REFRESH TOKEN!')
             auth_handler = AuthorizationHandler(session)
             auth_handler.refresh_access_token(self)
 

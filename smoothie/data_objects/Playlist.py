@@ -1,5 +1,5 @@
 from typing import Type
-from Song import Song
+from data_objects.Song import Song
 
 class Playlist:
 
