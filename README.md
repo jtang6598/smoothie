@@ -20,7 +20,14 @@
 
 ### Setup Project
 
-After the prerequisites are completed, you can use the following command to activate your virtualenv.
+After the prerequisites are completed, create a virtual environment using your favorite method. If you're on Mac or Linux and would like to run the demo notebook, you can expedite things by adding these two lines to `venv/bin/activate`, filling in your respective Spotify application client ID and secret (developer.spotify.com):
+
+```
+export SPOTIFY_CLIENT_ID=<SPOTIFY_CLIENT_ID>
+export SPOTIFY_CLIENT_SECRET=<SPOTIFY_CLIENT_SECRET>
+```
+
+You can use the following command to activate your virtualenv.
 
 For Mac
 
