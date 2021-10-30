@@ -29,7 +29,7 @@ export SPOTIFY_CLIENT_SECRET=<SPOTIFY_CLIENT_SECRET>
 
 You can use the following command to activate your virtualenv.
 
-For Mac
+For Mac/Linux
 
 ```
 $ source .venv/bin/activate
