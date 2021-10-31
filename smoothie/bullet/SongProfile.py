@@ -1,11 +1,10 @@
 
 
-from smoothie.data_objects.Playlist import Playlist
+from .ProfileDimension import ProfileDimension
 
 
 class SongProfile:
 
-    step_size = 0.01
     relevant_features = [
         'acousticness',
         'danceability',
@@ -19,15 +18,14 @@ class SongProfile:
         'valence',
     ]
 
-    def __init__(self, user, playlists): # our playlist type should have a list of all our songs 
-        return
-        self._profile = { feature: 0 for feature in SongProfile.relevant_features }
-        for playlist in  playlists:
-            # should be able to replace these nested for loops with a single for loop if using pandas.
-            # just add the column sum for each feature.
-            for song in playlist:
-                for feature in  relevant_features:
-                    self._profile[feature] += song[feature]
+    def __init__(self, user, song_df):
+        self.features = { feature: None for feature in SongProfile.relevant_features }
+        for feature in self.features:
+            dimension_values = list(song_df[feature])
+            dimension_weights = list(song_df['weight'])
+            self.features[feature] = ProfileDimension(feature, dimension_values, dimension_weights)
+
+        
         
 
 
