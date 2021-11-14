@@ -21,9 +21,10 @@ class SongProfile:
     def __init__(self, user, song_df):
         self.features = { feature: None for feature in SongProfile.relevant_features }
         for feature in self.features:
+            dimension_songids = list(song_df.id)
             dimension_values = list(song_df[feature])
-            dimension_weights = list(song_df['weight'])
-            self.features[feature] = ProfileDimension(feature, dimension_values, dimension_weights)
+            dimension_weights = list(song_df.weight)
+            self.features[feature] = ProfileDimension(feature, dimension_songids, dimension_values, dimension_weights)
 
         
         

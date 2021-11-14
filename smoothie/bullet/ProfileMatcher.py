@@ -52,13 +52,8 @@ class ProfileMatcher:
         min_val = min([min(dimension.values) for dimension in dimensions])
         max_val = max([max(dimension.values) for dimension in dimensions])
         for dimension in dimensions:
-            dimension.binned_values, dimension.bin_edges = np.histogram(
-                dimension.values, 
-                bins=ProfileDimension.n_bins,
-                weights=dimension.weights,
-                range=(min_val, max_val)
-            )
-            dimension.binned_values = dimension.binned_values.astype(np.float32)
+            dimension.bin_values(min_val, max_val)
+            
             # use a Gaussian filter to smooth out details into overall features
             dimension.binned_values = gaussian_filter(dimension.binned_values, sigma=ProfileMatcher.blur_radius)
 
