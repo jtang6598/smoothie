@@ -26,6 +26,10 @@ class SongProfile:
             dimension_weights = list(song_df.weight)
             self.features[feature] = ProfileDimension(feature, dimension_songids, dimension_values, dimension_weights)
 
+    
+    def feature_profile(self, feature):
+        return self.features[feature]
+
         
         
 
