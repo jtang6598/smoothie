@@ -128,10 +128,14 @@ class SmoothieStack(cdk.Stack):
         smoothie_usage_plan.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
         
         if is_prod:
+            block_public_access_settings = s3.BlockPublicAccess(block_public_acls=False,
+                block_public_policy=False,
+                ignore_public_acls=False,
+                restrict_public_buckets=False)
             website_bucket_name = f"smoothie-website-{region}-{account_id}"
             smoothie_website_bucket = s3.Bucket(self, website_bucket_name,
                 bucket_name=website_bucket_name,
                 website_index_document="index.html",
-                block_public_access=False,
+                block_public_access=block_public_access_settings,
                 public_read_access=True
             )
