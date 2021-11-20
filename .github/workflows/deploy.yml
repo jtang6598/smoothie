@@ -15,7 +15,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ${{ secrets.AWS_REGION }}
-      IS_PROD: true
+      IS_SMOOTHIE_PROD: true
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -31,7 +31,7 @@ jobs:
           pip install -r requirements.txt
       
       - name: cdk synth
-        run: cdk synth
+        run: cdk synth -q
 
       - name: cdk deploy
         run: cdk deploy SmoothieStackProd --require-approval never
