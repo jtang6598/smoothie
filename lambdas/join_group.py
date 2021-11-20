@@ -1,4 +1,3 @@
-"""Testing, empty commit"""
 def main(event, context):
   return {
         "statusCode": 200,
