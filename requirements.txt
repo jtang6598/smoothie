@@ -2,4 +2,3 @@ aiohttp
 numpy
 scipy
 pandas
--e .
