@@ -18,11 +18,17 @@ jobs:
       IS_PROD: true
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      
+      - name: Install cdk
+        run: npm install -g aws-cdk@1.125.0
+      
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
+      
       - name: cdk deploy
-        uses: scottbrenner/aws-cdk-action@master
-        with:
-          args: 'deploy SmoothieStackProd --require-approval never'
+        run: cdk deploy SmoothieStackProd --require-approval never
