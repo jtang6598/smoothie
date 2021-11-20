@@ -31,4 +31,5 @@ jobs:
           cdk_subcommand: 'deploy'
           cdk_version: '1.125.0'
           cdk_stack: 'SmoothieStackProd'
+          cdk_args: '--require-approval never'
           actions_comment: false
