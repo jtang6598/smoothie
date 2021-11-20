@@ -24,10 +24,15 @@ setuptools.setup(
         "aws_cdk.aws_lambda==1.125.0",
         "aws_cdk.aws_iam==1.125.0",
         "aws_cdk.aws_dynamodb==1.125.0",
-        "aws_cdk.aws_s3==1.125.0"
+        "aws_cdk.aws_s3==1.125.0",
+        "aiohttp",
+        "numpy",
+        "scipy",
+        "pandas",
+        "matplotlib"
     ],
 
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 
     classifiers=[
         "Development Status :: 4 - Beta",
