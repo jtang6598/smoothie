@@ -81,10 +81,19 @@ class ProfileMatcher:
             3. for each song, generate a sample feature coordinate?
             4. sample song from that coordinate bin?
             issue: may not have song with that exact feature combination
+
+            1. get original selection distribution for all features
+            2. loop over profiles. for each profile:
+            3. assign some weight/probability to each song based on total probability across all features
+            4. normalize song probabilities
+            5. sample songs based on probabilities
         """
-        for feature in SongProfile.relevant_features:
-            pdf = self.similarity_profile.feature_selection_distribution(feature)
-            samples = self.generate_samples(pdf)
+        original_selection_distribution = { 
+            feature: self.similarity_profile.feature_selection_distribution(feature) 
+            for feature in SongProfile.relevant_features
+        }
+            
+            
 
             
         pass

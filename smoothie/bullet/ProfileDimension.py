@@ -16,8 +16,8 @@ class ProfileDimension:
     weights: List
     binned_values: npt.ArrayLike = None
     bin_edges: npt.ArrayLike = None
+    song_buckets: List = None
     _bin_width: float = None
-    _song_buckets: List = None
 
 
     def normalize(self):
@@ -40,7 +40,7 @@ class ProfileDimension:
         self._hashed_songs = [[] for _ in range(ProfileDimension.n_bins)]
         for i, song_id in enumerate(self.song_ids):
             bin = self.find_bin(self.values[i])
-            self._song_buckets[bin].append(song_id)
+            self.song_buckets[bin].append(song_id)
 
 
     def find_bin(self, value):
