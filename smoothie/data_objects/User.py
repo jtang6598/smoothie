@@ -10,6 +10,7 @@ class User:
     access_token: str = None
     refresh_token:  str = None
     user_id: str = None
+    display_name: str = None
     token_expiration_time: int = None
 
     def check_and_refresh_token(self, session):
@@ -21,5 +22,8 @@ class User:
 
     def build_auth_header(self, session):
         self.check_and_refresh_token(session)
-        return { 'Authorization': 'Bearer ' + self.access_token }
+        return { 
+            'Authorization': 'Bearer ' + self.access_token,
+            'content-type': 'application/json' 
+        }
         

@@ -8,14 +8,17 @@ from .ProfileDimension import ProfileDimension
 from .SimilarityProfile import SimilarityProfile
 from .SongProfile import SongProfile
 
+from pandas import DataFrame
+from functools import reduce
 
 class ProfileMatcher:
 
     blur_radius = 3
+    songs_per_person = 10
 
     def __init__(self):
-        self.profiles = []
-        self.similarity_profile = None
+        self.profiles:  List[SongProfile] = []
+        self.similarity_profile:  SimilarityProfile = None
 
 
     # def get_similarity_profile(self):
@@ -23,10 +26,10 @@ class ProfileMatcher:
 
 
     def add_profile(self, profile):
-        if len(self._profiles) >= 2:
+        if len(self.profiles) >= 2:
             raise NotImplementedError('Matching is currently only supported for two profiles at a time!')
 
-        self._profiles.append(profile)
+        self.profiles.append(profile)
 
 
     def add_profiles(self, profile_list):
@@ -37,7 +40,7 @@ class ProfileMatcher:
     def match_profiles(self):
         signed_similarity = {}
         for feature in SongProfile.relevant_features:
-            dimensions = [profile.features[feature] for profile in self._profiles]
+            dimensions = [profile.features[feature] for profile in self.profiles]
             self.bin_and_smooth_dimensions(dimensions)
             self.normalize_dimensions(dimensions)
             signed_similarity[feature] = self.calculate_signed_similarity(dimensions)
@@ -86,17 +89,31 @@ class ProfileMatcher:
             2. loop over profiles. for each profile:
             3. assign some weight/probability to each song based on total probability across all features
             4. normalize song probabilities
-            5. sample songs based on probabilities
+            5. sample songs based on probabilities (make sure not to include duplicates)
         """
         original_selection_distribution = { 
             feature: self.similarity_profile.feature_selection_distribution(feature) 
-            for feature in SongProfile.relevant_features
+                for feature in SongProfile.relevant_features
         }
-            
-            
 
+        playlist_uris = set()
             
-        pass
+        for profile in self.profiles:
+            # Calculate probabilities for each song and append column to df
+            profile.df = profile.df.assign(selection_weight = lambda x: self.song_selection_weight(x, original_selection_distribution, profile))
+            songs_to_add = profile.df.sample(
+                n=10,
+                axis=0,
+                weights=profile.df.selection_weight
+            ).uri
+            for song_uri in songs_to_add:
+                playlist_uris.add(song_uri)
+            
+            continue
+
+        return playlist_uris
+        
+            
 
 
     def generate_samples(
@@ -111,4 +128,24 @@ class ProfileMatcher:
     def intervaled_integral(similarity, bin_edges):
         # use trapezoid rule
         return 0.5 * (similarity[:-1] + similarity[1:]) * np.diff(bin_edges)
+
+
+    def song_selection_weight(
+        self, 
+        df: DataFrame, 
+        selection_distribution: npt.ArrayLike, 
+        profile: SongProfile
+    ):
+        # TODO: how to make sure all feature weights are added?
+        weights = {}
+        for feature in SongProfile.relevant_features:
+            profile_dimension = profile.features[feature]
+            bins = (df[feature] - profile_dimension.bin_edges[0]) / profile_dimension.bin_width
+            bins = bins.astype(int)
+            weights[feature] = bins.apply(lambda x: selection_distribution[feature][x])
+
+        weight = reduce(lambda x, y: x.add(y, fill_value=0), weights.values())
+        weight = weight ** 2 / weight.sum()
+        return weight
+
 

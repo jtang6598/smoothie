@@ -12,6 +12,6 @@ async def get_audio_features_for_several_tracks(session, user, track_ids):
         print('Track ids:\t' + str(track_ids))
         raise te
 
-    response = await spotify_get(session, 'https://api.spotify.com/v1/audio-features', params=params, headers=headers)
+    response = await spotify_get(session, '/audio-features', params=params, headers=headers)
 
     return response['audio_features']

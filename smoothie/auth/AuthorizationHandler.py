@@ -4,7 +4,7 @@ import getpass
 import urllib
 import os
 
-from spotify.gateway import *
+from spotify.gateway import spotify_post
 
 class AuthorizationHandler:
 
@@ -52,7 +52,7 @@ class AuthorizationHandler:
             'redirect_uri': self._redirect_uri
         }
 
-        response = await spotify_post(self._client_session, url="https://accounts.spotify.com/api/token", body=body, auth=self._auth)
+        response = await spotify_post(self._client_session, api="/api/token", base_url="https://accounts.spotify.com", body=body, auth=self._auth, isjson=False)
         user.access_token = response['access_token']
         user.refresh_token = response['refresh_token']
         user.token_expiration_time = int(time.time()) + response['expires_in']
@@ -66,7 +66,7 @@ class AuthorizationHandler:
             'refresh_token': user.refresh_token
         }
 
-        response = await spotify_post(self._client_session, url="https://accounts.spotify.com/api/token", body=body, auth=self._auth)
+        response = await spotify_post(self._client_session, api="/api/token", base_url="https://accounts.spotify.com/api/token", body=body, auth=self._auth, isjson=False)
         user.access_token = response['access_token']
         user.token_expiration_time = int(time.time()) + response['expires_in']
 

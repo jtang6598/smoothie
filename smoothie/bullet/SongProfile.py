@@ -1,5 +1,7 @@
 
 
+from pandas import DataFrame
+from smoothie.data_objects.User import User
 from .ProfileDimension import ProfileDimension
 
 
@@ -18,8 +20,14 @@ class SongProfile:
         'valence',
     ]
 
-    def __init__(self, user, song_df):
-        self.features = { feature: None for feature in SongProfile.relevant_features }
+    def __init__(
+        self, 
+        user: User, 
+        song_df: DataFrame
+    ):
+        self.features = { feature: ProfileDimension for feature in SongProfile.relevant_features }
+        self.df = song_df[[*SongProfile.relevant_features, 'uri']]
+        self.user = user
         for feature in self.features:
             dimension_songids = list(song_df.id)
             dimension_values = list(song_df[feature])
