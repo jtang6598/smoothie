@@ -21,6 +21,7 @@ class AuthorizationHandler:
         auth = aiohttp.BasicAuth(os.environ.get("SPOTIFY_CLIENT_ID"), os.environ.get("SPOTIFY_CLIENT_SECRET"))
 
         response = await spotify_post(client_session, api="/api/token", base_url="https://accounts.spotify.com", body=body, auth=auth, isjson=False)
+AQCt_rAn4YHE5FX_jtqG9ONdv5K5fZi3nfaW9l1B2c_bv6Y1j8LCMcCEXOtgJSryzAdHOgFWcJP55ciwRtPwJdGKD2Jx77bBlv7Ct0Ihsv1tn7GbdLa2USBHxg_6ooqV8rCFW7Vl_8zqJXR_Wf5mARLku7PfnHz_Tt-8AgAdLne-pe6fUbFJOPWZmmr6s0ebVBMvtHCUZeNQNlO62JQcl_cdsayw
 
         return response
 

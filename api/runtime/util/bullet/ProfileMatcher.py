@@ -143,4 +143,3 @@ class ProfileMatcher:
         weight = weight ** 2 / weight.sum()
         return weight
 
-

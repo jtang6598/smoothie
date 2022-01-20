@@ -40,5 +40,4 @@ class ProfileDimension:
         self.bin_edges[-1] += 0.1 # last right edge is inclusive; this helps with calculating bin indexes
         self.bin_width = (self.bin_edges[-1] - self.bin_edges[0]) / ProfileDimension.n_bins
 
-
         
