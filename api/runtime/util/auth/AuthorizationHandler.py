@@ -1,8 +1,5 @@
-import time
 from typing import Any, Dict
 import aiohttp
-import getpass
-import urllib
 import os
 
 from api.runtime.util.spotify.gateway import spotify_post
