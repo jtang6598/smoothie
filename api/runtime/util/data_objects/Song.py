@@ -22,4 +22,4 @@ class Song:
     type: str
     uri: str
     valence: float
-    added_at: float = 1
+    # added_at: float = 1

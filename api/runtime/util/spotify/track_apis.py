@@ -1,17 +1,24 @@
+from typing import List
+from aiohttp import ClientSession
+
+from api.runtime.util.spotify.gateway import spotify_get
+
+from api.runtime.util.data_objects.User import User
 
 
-from spotify.gateway import spotify_get
-
-
-async def get_audio_features_for_several_tracks(session, user, track_ids):
+async def get_audio_features_for_several_tracks(
+    session: ClientSession, 
+    user: User, 
+    track_ids: List[str]
+):
     # len(track_ids) must be <= 100
-    headers = user.build_auth_header(session)
+    headers = await user.build_auth_header(session)
     try:
         params = { 'ids': ','.join(track_ids) }
     except TypeError as te:
         print('Track ids:\t' + str(track_ids))
         raise te
 
-    response = await spotify_get(session, 'https://api.spotify.com/v1/audio-features', params=params, headers=headers)
+    response = await spotify_get(session, '/audio-features', params=params, headers=headers)
 
     return response['audio_features']
