@@ -24,7 +24,7 @@ class SongProfile:
         self, 
         user: User, 
         song_df: DataFrame
-    ):
+    ) -> None:
         self.features = { feature: ProfileDimension for feature in SongProfile.relevant_features }
         self.df = song_df[[*SongProfile.relevant_features, 'uri']]
         self.user = user
@@ -35,7 +35,10 @@ class SongProfile:
             self.features[feature] = ProfileDimension(feature, dimension_songids, dimension_values, dimension_weights)
 
     
-    def feature_profile(self, feature):
+    def feature_profile(
+        self, 
+        feature: str
+    ) -> ProfileDimension:
         return self.features[feature]
 
         

@@ -20,11 +20,15 @@ class ProfileDimension:
     bin_width: float = None
 
 
-    def normalize(self):
+    def normalize(self) -> None:
         self.binned_values = self.binned_values / np.sum(self.binned_values)
 
     
-    def bin_values(self, min_val, max_val):
+    def bin_values(
+        self, 
+        min_val: float, 
+        max_val: float
+    ) -> None:
         self.weights = self.weights / np.sum(self.weights)
         self.binned_values, self.bin_edges = np.histogram(
             self.values, 
@@ -35,18 +39,6 @@ class ProfileDimension:
         self.binned_values = self.binned_values.astype(np.float32)
         self.bin_edges[-1] += 0.1 # last right edge is inclusive; this helps with calculating bin indexes
         self.bin_width = (self.bin_edges[-1] - self.bin_edges[0]) / ProfileDimension.n_bins
-        # self.hash_songs()
-
-    
-    def hash_songs(self):
-        self._hashed_songs = [[] for _ in range(ProfileDimension.n_bins)]
-        for i, song_id in enumerate(self.song_ids):
-            bin = self.find_bin(self.values[i])
-            # self.song_buckets[bin].append(song_id)
-
-
-    def find_bin(self, value):
-        return int((value - self.bin_edges[0]) / self.bin_width)
 
 
         

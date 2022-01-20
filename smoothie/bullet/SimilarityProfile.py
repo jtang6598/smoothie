@@ -15,7 +15,10 @@ class SimilarityProfile:
         self.feature_similarities = feature_similarities
 
 
-    def feature_profile(self, feature):
+    def feature_profile(
+        self, 
+        feature: str
+    ) -> npt.ArrayLike:
         return self.feature_similarities[feature]
 
 
@@ -24,7 +27,7 @@ class SimilarityProfile:
         feature: str,
         area_fraction: float = 0.5,
         tol: float = 0.01
-    ):
+    ) -> npt.ArrayLike:
         """
         The specified feature of the similarity profile is square to amplify 
         regions of high similarity. The squared feature is then normalized to 
@@ -43,7 +46,7 @@ class SimilarityProfile:
         similarity: npt.ArrayLike, 
         fraction: float, 
         tol: float
-    ):
+    ) -> float:
         total_area = np.sum(similarity)
         y = total_area * fraction / ProfileDimension.n_bins
         lower_area = self.find_lower_area(similarity, y)
@@ -61,7 +64,7 @@ class SimilarityProfile:
         self,
         similarity: npt.ArrayLike,
         y: float
-    ):
+    ) -> float:
         area = 0
         for bin in similarity:
             area += min(bin, y)

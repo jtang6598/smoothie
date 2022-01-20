@@ -7,11 +7,9 @@ async def get_profile(
     session: ClientSession, 
     user: User
 ):
-    headers = user.build_auth_header(session)
+    headers = await user.build_auth_header(session)
 
     response = await spotify_get(session, '/me', headers=headers)
-    user.user_id = response['id']
-    user.display_name = response['display_name']
 
     return response
 

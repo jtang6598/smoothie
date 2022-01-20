@@ -8,7 +8,7 @@ async def get_current_users_playlists(
     session: ClientSession, 
     user: User
 ):
-    headers = user.build_auth_header(session)
+    headers = await user.build_auth_header(session)
     
     response = await spotify_get(session, '/me/playlists', headers=headers)
     playlist_list = response['items']
@@ -24,7 +24,7 @@ async def get_playlist(
     user: User, 
     playlist_id: str
 ):
-    headers = user.build_auth_header(session)
+    headers = await user.build_auth_header(session)
 
     params = {
         'fields': 'items(added_at, track(id)),next' # only return specific fields of the response
@@ -57,7 +57,7 @@ async def create_playlist(
     collaborative: bool = False,
     description: str = ""
 ):
-    headers = user.build_auth_header(session)
+    headers = await user.build_auth_header(session)
     body = {
         "name": name,
         "public": public,
@@ -83,7 +83,7 @@ async def add_to_playlist(
 ):
     max_uris_per_request = 100
     uri_chunks = [song_uris[i: i + max_uris_per_request] for i in range(0, len(song_uris), max_uris_per_request)]
-    headers = user.build_auth_header(session)
+    headers = await user.build_auth_header(session)
 
     for uri_chunk in uri_chunks:
         body = {
