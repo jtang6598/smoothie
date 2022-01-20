@@ -1,7 +1,7 @@
 from typing import List
-from spotify.gateway import spotify_get, spotify_post
+from api.runtime.util.spotify.gateway import spotify_get, spotify_post
 from aiohttp import ClientSession
-from smoothie.data_objects.User import User
+from api.runtime.util.data_objects.User import User
 
 
 async def get_current_users_playlists(

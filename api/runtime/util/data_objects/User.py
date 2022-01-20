@@ -3,7 +3,7 @@ import time
 from traceback import print_stack
 from typing import Optional
 
-from auth.AuthorizationHandler import AuthorizationHandler
+from api.runtime.util.auth.AuthorizationHandler import AuthorizationHandler
 from aiohttp import ClientSession
 
 @dataclass

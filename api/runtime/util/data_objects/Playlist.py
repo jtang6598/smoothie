@@ -1,6 +1,3 @@
-from typing import Type
-from data_objects.Song import Song
-
 class Playlist:
 
     def __init__(self):

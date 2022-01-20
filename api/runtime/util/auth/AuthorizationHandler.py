@@ -5,7 +5,7 @@ import getpass
 import urllib
 import os
 
-from spotify.gateway import spotify_post
+from api.runtime.util.spotify.gateway import spotify_post
 
 class AuthorizationHandler:
 

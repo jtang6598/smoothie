@@ -3,7 +3,7 @@ from typing import Dict
 import numpy as np
 import numpy.typing as npt
 
-from .ProfileDimension import ProfileDimension
+from api.runtime.util.bullet.ProfileDimension import ProfileDimension
 
 
 class SimilarityProfile:

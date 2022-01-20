@@ -1,8 +1,8 @@
 
 
 from pandas import DataFrame
-from smoothie.data_objects.User import User
-from .ProfileDimension import ProfileDimension
+from api.runtime.util.data_objects.User import User
+from api.runtime.util.bullet.ProfileDimension import ProfileDimension
 
 
 class SongProfile:

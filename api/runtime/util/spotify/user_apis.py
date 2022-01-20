@@ -1,7 +1,6 @@
-from auth.AuthorizationHandler import AuthorizationHandler
-from spotify.gateway import *
+from api.runtime.util.spotify.gateway import spotify_get
+from api.runtime.util.data_objects.User import User
 from aiohttp import ClientSession
-from smoothie.data_objects.User import User
 
 async def get_profile(
     session: ClientSession, 
