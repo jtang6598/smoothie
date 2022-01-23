@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from python_settings import settings 
 import aiohttp
 import os
 
@@ -20,7 +21,7 @@ class AuthorizationHandler:
 
         auth = aiohttp.BasicAuth(os.environ.get("SPOTIFY_CLIENT_ID"), os.environ.get("SPOTIFY_CLIENT_SECRET"))
 
-        response = await spotify_post(client_session, api="/api/token", base_url="https://accounts.spotify.com", body=body, auth=auth, isjson=False)
+        response = await spotify_post(client_session, api="/api/token", base_url=settings.SPOTIFY_AUTH_API, body=body, auth=auth, isjson=False)
 
         return response
 
@@ -37,7 +38,7 @@ class AuthorizationHandler:
 
         auth = aiohttp.BasicAuth(os.environ.get("SPOTIFY_CLIENT_ID"), os.environ.get("SPOTIFY_CLIENT_SECRET"))
 
-        response = await spotify_post(client_session, api="/api/token", base_url="https://accounts.spotify.com/api/token", body=body, auth=auth, isjson=False)
+        response = await spotify_post(client_session, api="/api/token", base_url=settings.SPOTIFY_AUTH_API, body=body, auth=auth, isjson=False)
 
         return response
 

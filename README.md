@@ -18,7 +18,7 @@
     ```
     2. Enter your IAM user's access key and secret access key when prompted
 
-### Setup Project
+### Set up Project
 
 After the prerequisites are completed, create a virtual environment using your favorite method. If you're on Mac or Linux and would like to run the demo notebook, you can expedite things by adding these two lines to `venv/bin/activate`, filling in your respective Spotify application client ID and secret (developer.spotify.com):
 
@@ -46,6 +46,19 @@ Once the virtualenv is activated, you can install the required dependencies.
 ```
 $ pip install -r requirements.txt
 ```
+
+### Environments
+
+This project supports development and production environments using the [python-settings](https://pypi.org/project/python-settings/) module. To activate a particular environment, update your `SETTINGS_MODULE` environment variable by running
+
+```
+$ export SETTINGS_MODULE=settings.<dev/prod>
+```
+
+Note that this environment variable MUST be set in order to test any code that eventually tries to call Spotify's APIs. 
+
+The development environment uses a mock server on localhost port 3000 which serves all of Spotify's Web API endpoints, as well as an additional one for authentication mock responses, using [Mockoon](https://github.com/mockoon). Simply install Mockoon and import `mockoon-environment.json` to configure the server. Start the server by clicking the run button at the top of the window.
+
 
 ### Deploy Stack
 
