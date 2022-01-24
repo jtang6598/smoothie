@@ -15,7 +15,12 @@ setuptools.setup(
 
     author="author",
 
-    package_dir={"": "smoothie"},
+    package_dir={
+        "api": "api",
+        "database": "database",
+        "settings": "settings",
+        "website": "website,"
+    },
     packages=setuptools.find_packages(where="smoothie"),
 
     install_requires=[
@@ -24,7 +29,8 @@ setuptools.setup(
         "aws_cdk.aws_lambda==1.125.0",
         "aws_cdk.aws_iam==1.125.0",
         "aws_cdk.aws_dynamodb==1.125.0",
-        "aws_cdk.aws_s3==1.125.0"
+        "aws_cdk.aws_s3==1.125.0",
+        "python_settings>=0.2.2"
     ],
 
     python_requires=">=3.6",
