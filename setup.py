@@ -19,7 +19,7 @@ setuptools.setup(
         "api": "api",
         "database": "database",
         "settings": "settings",
-        "website": "website,"
+        "website": "website",
     },
     packages=setuptools.find_packages(where="smoothie"),
 
