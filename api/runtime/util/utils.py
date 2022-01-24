@@ -18,5 +18,5 @@ def normalize_array(arr: npt.ArrayLike) -> npt.ArrayLike:
     return arr / np.sum(arr)
 
 class ClientSessionWrapper:
-    session: ClientSession
+    session: ClientSession = None
 
