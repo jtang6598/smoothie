@@ -1,5 +1,6 @@
 from typing import List
 from dataclasses import dataclass
+from api.runtime.util import utils
 
 import numpy.typing as npt
 import numpy as np
@@ -21,7 +22,7 @@ class ProfileDimension:
 
 
     def normalize(self) -> None:
-        self.binned_values = self.binned_values / np.sum(self.binned_values)
+        self.binned_values = utils.normalize_array(self.binned_values)
 
     
     def bin_values(
@@ -29,7 +30,7 @@ class ProfileDimension:
         min_val: float, 
         max_val: float
     ) -> None:
-        self.weights = self.weights / np.sum(self.weights)
+        self.weights = utils.normalize_array(self.weights)
         self.binned_values, self.bin_edges = np.histogram(
             self.values, 
             bins=ProfileDimension.n_bins,

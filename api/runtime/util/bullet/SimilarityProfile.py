@@ -4,6 +4,7 @@ import numpy as np
 import numpy.typing as npt
 
 from api.runtime.util.bullet.ProfileDimension import ProfileDimension
+from api.runtime.util import utils
 
 
 class SimilarityProfile:
@@ -38,7 +39,7 @@ class SimilarityProfile:
         for i, similarity in  enumerate(squared_similarity):
             squared_similarity[i] = max(0, similarity - cutoff_y)
 
-        return squared_similarity / np.sum(squared_similarity)
+        return utils.normalize_arrays(squared_similarity)
 
 
     def fractional_area_y_value(
