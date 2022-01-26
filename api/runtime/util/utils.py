@@ -30,7 +30,12 @@ class ClientSessionWrapper:
         return ClientSessionWrapper._instance
 
     def __init__(self) -> None:
-        self.session = ClientSession()
+        try:
+            asyncio.get_running_loop() # purely to check for an active event loop
+            self.session = ClientSession()
+        except RuntimeError:
+            raise RuntimeError("ClientSessionWrapper tried to construct a ClientSession "
+                "outside of an event loop! Use utils.get_client_session() instead")
 
     def __del__(self) -> None:
         if self.session is not None:
