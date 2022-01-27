@@ -1,29 +1,37 @@
-import aiohttp
-import asyncio
-from smoothie.data_objects.User import User
-from smoothie.auth.AuthorizationHandler import AuthorizationHandler
+import string
+import secrets
+from util.dao.GroupsDAO import GroupsDao
+from util.auth.AuthorizationHandler import AuthorizationHandler
+import util.utils as utils
 
-# wip
-def main(event, context):
+# Create a group and return the group id to the client
+async def main(event, context):
+    # TODO: input sanitization
     code = event['code']
-    user = User(code=code)
+    redirect_uri = event['redirect_uri']
     
-    client_session = aiohttp.ClientSession()
-    auth_handler = AuthorizationHandler(client_session)
-    response = asyncio.run(auth_handler.request_access_token(user))
+    client_session = await utils.get_client_session()
+    # response = await AuthorizationHandler.request_access_token(client_session, code, redirect_uri)
+    # access_token = response['access_token']
+    # refresh_token = response['refresh_token']
+    
+    access_token = "dummy access"
+    refresh_token = "dummy response"
 
-    print(response)
+    alphabet = string.ascii_letters + string.digits
+    group_id = ''.join(secrets.choice(alphabet) for i in range(8))
 
-    client_session.close()
+    dao = GroupsDao()
+    dao.put_group(group_id, access_token, refresh_token)
+
+    body = {"id": group_id}
+
+    await client_session.close()
 
     return {
         "statusCode": 200,
         "headers": {
             "Content-Type": "application/json"
         },
-        "body": "createGroup succeeded"
+        "body": body
     }
-
-if __name__ == "__main__":
-    event = {"code": "dummy code"}
-    main(event, None)

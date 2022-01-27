@@ -3,7 +3,7 @@ from python_settings import settings
 import aiohttp
 import os
 
-from api.runtime.util.spotify.gateway import spotify_post
+from util.spotify.gateway import spotify_post
 
 class AuthorizationHandler:
 

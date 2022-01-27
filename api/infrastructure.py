@@ -26,34 +26,41 @@ class SmoothieApi(cdk.Construct):
 		smoothie_lambda_role.apply_removal_policy(cdk.RemovalPolicy.DESTROY)
 		dynamodb_table.grant_read_write_data(smoothie_lambda_role)
 
+		bundling_options = cdk.BundlingOptions(image=lambda_.Runtime.PYTHON_3_8.bundling_image, command=[
+			"bash", "-c",
+			"pip3 install --no-cache -r requirements.txt -t /asset-output && cp -au . /asset-output",
+			f"cp /settings/{stage}.py /asset-output"
+		])
+		code = lambda_.Code.from_asset(path="./api/runtime", bundling=bundling_options)
 		# TODO: Update memory and timeout limits with better estimates
-        # Create all handlers
+    # Create all handlers
 		create_group_handler = lambda_.Function(self, "CreateGroupHandler",
 			runtime=lambda_.Runtime.PYTHON_3_8,
 			handler="create_group.main",
-			code=lambda_.Code.from_asset("./api/runtime"),
-            description="Add a new group and member to the Groups table",
-            role=smoothie_lambda_role,
-            memory_size=128,
-            timeout=cdk.Duration.seconds(10)
-        )
+			code=code,
+      description="Add a new group and member to the Groups table",
+			role=smoothie_lambda_role,
+			memory_size=128,
+			timeout=cdk.Duration.seconds(10),
+			environment={"SETTINGS_MODULE": f"settings.{stage}"}
+		)
 		join_group_handler = lambda_.Function(self, "JoinGroupHandler",
-            runtime=lambda_.Runtime.PYTHON_3_8,
-            handler="join_group.main",
-            code=lambda_.Code.from_asset("./api/runtime"),
-            description="Add a new member to a group in the Groups table",
-            role=smoothie_lambda_role,
-            memory_size=128,
-            timeout=cdk.Duration.seconds(10)
-        )
-        # TODO: Add Spotify token as env variable (retrieve locally through env variable, use Github secrets when deploying to prod)
+			runtime=lambda_.Runtime.PYTHON_3_8,
+			handler="join_group.main",
+			code=code,
+			description="Add a new member to a group in the Groups table",
+			role=smoothie_lambda_role,
+			memory_size=128,
+			timeout=cdk.Duration.seconds(10)
+		)
+    # TODO: Add Spotify token as env variable (retrieve locally through env variable, use Github secrets when deploying to prod)
 		create_playlist_handler = lambda_.Function(self, f"CreatePlaylistHandler",
-            runtime=lambda_.Runtime.PYTHON_3_8,
-            handler="create_playlist.main",
-            code=lambda_.Code.from_asset("./api/runtime"),
-            description="Create a group's playlist",
-            role=smoothie_lambda_role
-        )
+			runtime=lambda_.Runtime.PYTHON_3_8,
+			handler="create_playlist.main",
+			code=code,
+			description="Create a group's playlist",
+			role=smoothie_lambda_role
+		)
 
 		# Setup Lambda integrations
 		create_group_integration = apigateway.LambdaIntegration(create_group_handler)

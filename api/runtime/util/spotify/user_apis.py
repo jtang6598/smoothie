@@ -1,5 +1,5 @@
-from api.runtime.util.spotify.gateway import spotify_get
-from api.runtime.util.data_objects.User import User
+from util.spotify.gateway import spotify_get
+from util.data_objects.User import User
 from aiohttp import ClientSession
 
 async def get_profile(

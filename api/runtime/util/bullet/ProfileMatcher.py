@@ -4,9 +4,9 @@ import numpy as np
 import numpy.typing as npt
 from scipy.ndimage.filters import gaussian_filter
 
-from api.runtime.util.bullet.ProfileDimension import ProfileDimension
-from api.runtime.util.bullet.SimilarityProfile import SimilarityProfile
-from api.runtime.util.bullet.SongProfile import SongProfile
+from util.bullet.ProfileDimension import ProfileDimension
+from util.bullet.SimilarityProfile import SimilarityProfile
+from util.bullet.SongProfile import SongProfile
 
 from pandas import DataFrame, Series
 from functools import reduce

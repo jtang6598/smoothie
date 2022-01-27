@@ -1,9 +1,9 @@
 from typing import List
 from aiohttp import ClientSession
 
-from api.runtime.util.spotify.gateway import spotify_get
+from util.spotify.gateway import spotify_get
 
-from api.runtime.util.data_objects.User import User
+from util.data_objects.User import User
 
 
 async def get_audio_features_for_several_tracks(

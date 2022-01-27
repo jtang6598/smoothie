@@ -1,8 +1,8 @@
 
 
 from pandas import DataFrame
-from api.runtime.util.data_objects.User import User
-from api.runtime.util.bullet.ProfileDimension import ProfileDimension
+from util.data_objects.User import User
+from util.bullet.ProfileDimension import ProfileDimension
 
 
 class SongProfile:

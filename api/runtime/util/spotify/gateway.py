@@ -1,5 +1,5 @@
 import json
-from python_settings import settings 
+from python_settings import settings
 
 async def spotify_get(session, api, params=None, body=None, headers=None, auth=None, isjson=True, base_url=settings.SPOTIFY_WEB_API):
     if isjson and body:

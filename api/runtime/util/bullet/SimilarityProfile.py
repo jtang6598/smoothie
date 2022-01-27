@@ -3,8 +3,8 @@ from typing import Dict
 import numpy as np
 import numpy.typing as npt
 
-from api.runtime.util.bullet.ProfileDimension import ProfileDimension
-from api.runtime.util import utils
+from util.bullet.ProfileDimension import ProfileDimension
+import util.utils as utils
 
 
 class SimilarityProfile:

@@ -1,7 +1,7 @@
 from typing import List
-from api.runtime.util.spotify.gateway import spotify_get, spotify_post
+from util.spotify.gateway import spotify_get, spotify_post
 from aiohttp import ClientSession
-from api.runtime.util.data_objects.User import User
+from util.data_objects.User import User
 from python_settings import settings 
 
 

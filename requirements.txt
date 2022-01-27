@@ -4,4 +4,5 @@ scipy
 pandas
 matplotlib
 python-settings
+boto3
 -e .

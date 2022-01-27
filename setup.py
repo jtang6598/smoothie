@@ -18,18 +18,18 @@ setuptools.setup(
     package_dir={
         "api": "api",
         "database": "database",
-        "settings": "settings",
+        "settings": "api/runtime/settings",
         "website": "website",
     },
     packages=setuptools.find_packages(where="smoothie"),
 
     install_requires=[
-        "aws-cdk.core==1.125.0",
-        "aws-cdk.aws-apigateway==1.125.0",
-        "aws_cdk.aws_lambda==1.125.0",
-        "aws_cdk.aws_iam==1.125.0",
-        "aws_cdk.aws_dynamodb==1.125.0",
-        "aws_cdk.aws_s3==1.125.0",
+        "aws-cdk.core==1.132.0",
+        "aws-cdk.aws-apigateway==1.132.0",
+        "aws_cdk.aws_lambda==1.132.0",
+        "aws_cdk.aws_iam==1.132.0",
+        "aws_cdk.aws_dynamodb==1.132.0",
+        "aws_cdk.aws_s3==1.132.0",
         "python_settings>=0.2.2"
     ],
 

@@ -1,6 +1,6 @@
 from typing import List
 from dataclasses import dataclass
-from api.runtime.util import utils
+from runtime.util import utils
 
 import numpy.typing as npt
 import numpy as np
