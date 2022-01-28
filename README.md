@@ -52,7 +52,7 @@ $ pip install -r requirements.txt
 This project supports development and production environments using the [python-settings](https://pypi.org/project/python-settings/) module. To activate a particular environment, update your `SETTINGS_MODULE` environment variable by running
 
 ```
-$ export SETTINGS_MODULE=settings.<dev/prod>
+$ make env_<dev/prod>
 ```
 
 Note that this environment variable MUST be set in order to test any code that eventually tries to call Spotify's APIs. 
