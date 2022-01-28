@@ -57,7 +57,7 @@ $ export SETTINGS_MODULE=settings.<dev/prod>
 
 Note that this environment variable MUST be set in order to test any code that eventually tries to call Spotify's APIs. 
 
-The development environment uses a mock server on localhost port 3000 which serves all of Spotify's Web API endpoints, as well as an additional one for authentication mock responses, using [Mockoon](https://github.com/mockoon). Simply install Mockoon and import `mockoon-environment.json` to configure the server. Start the server by clicking the run button at the top of the window.
+The development environment uses a mock server on localhost port 3000 which serves all of Spotify's Web API endpoints, as well as an additional one for authentication mock responses, using [Mockoon](https://github.com/mockoon). Simply install Mockoon and import `mockoon-environment.json` (which is based on Mockoon's provided [Spotify mocks](https://github.com/mockoon/mock-samples/blob/main/apis/spotify.json)) to configure the server. Start the server by clicking the run button at the top of the window.
 
 
 ### Deploy Stack

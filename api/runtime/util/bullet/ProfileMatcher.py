@@ -2,11 +2,11 @@ from typing import List, Set
 
 import numpy as np
 import numpy.typing as npt
-from scipy.ndimage.filters import gaussian_filter
 
 from util.bullet.ProfileDimension import ProfileDimension
 from util.bullet.SimilarityProfile import SimilarityProfile
 from util.bullet.SongProfile import SongProfile
+from util import utils
 
 from pandas import DataFrame, Series
 from functools import reduce
@@ -95,7 +95,7 @@ class ProfileMatcher:
             dimension.bin_values(min_val, max_val)
             
             # use a Gaussian filter to smooth out details into overall features
-            dimension.binned_values = gaussian_filter(dimension.binned_values, sigma=ProfileMatcher.blur_radius)
+            dimension.binned_values = utils.gaussian_blur_1d(dimension.binned_values, ProfileMatcher.blur_radius)
 
 
     def _normalize_dimensions(
