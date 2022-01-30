@@ -1,5 +1,4 @@
 aiohttp
 numpy
-scipy
 pandas
 python-settings

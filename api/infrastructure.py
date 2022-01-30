@@ -29,7 +29,6 @@ class SmoothieApi(cdk.Construct):
 		bundling_options = cdk.BundlingOptions(image=lambda_.Runtime.PYTHON_3_8.bundling_image, command=[
 			"bash", "-c",
 			"pip3 install --no-cache -r requirements.txt -t /asset-output && cp -au . /asset-output",
-			f"cp /settings/{stage}.py /asset-output"
 		])
 		code = lambda_.Code.from_asset(path="./api/runtime", bundling=bundling_options)
 		# TODO: Update memory and timeout limits with better estimates

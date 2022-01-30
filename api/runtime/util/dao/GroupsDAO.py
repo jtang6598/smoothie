@@ -12,4 +12,4 @@ class GroupsDao:
       "access_token": access_token,
       "refresh_token": refresh_token
     }
-    self._table.put_item(item)
+    self._table.put_item(Item=item)
