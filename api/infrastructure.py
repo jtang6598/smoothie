@@ -50,7 +50,8 @@ class SmoothieApi(cdk.Construct):
 			description="Add a new member to a group in the Groups table",
 			role=smoothie_lambda_role,
 			memory_size=128,
-			timeout=cdk.Duration.seconds(10)
+			timeout=cdk.Duration.seconds(10),
+			environment={"SETTINGS_MODULE": f"settings.{stage}"}
 		)
     # TODO: Add Spotify token as env variable (retrieve locally through env variable, use Github secrets when deploying to prod)
 		create_playlist_handler = lambda_.Function(self, f"CreatePlaylistHandler",
